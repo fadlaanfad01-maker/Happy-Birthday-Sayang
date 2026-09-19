@@ -2,7 +2,7 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Untuk Regina</title>
     <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Nunito:wght@400;600;800&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
     
@@ -14,10 +14,9 @@
             --accent-pink: #FF6B8B;
             --tape-color: rgba(255, 255, 255, 0.4);
             --gold-muted: #C9A96E;
-            --cassette-dark: #4A1525;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         
         body {
             background-color: var(--maroon-bg);
@@ -27,6 +26,7 @@
             overflow: hidden;
             min-height: 100vh;
             height: 100vh;
+            width: 100vw;
         }
 
         /* FALLING HEARTS */
@@ -44,13 +44,58 @@
         .shape-heart { fill: var(--accent-pink); } .shape-star { fill: var(--gold-muted); } .shape-sparkle { fill: var(--paper-white); }
         @keyframes floatShape { 0%, 100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-15px) rotate(10deg); } }
 
-        /* VINYL PLAYER */
-        .vinyl-player { position: fixed; bottom: 20px; left: 20px; z-index: 1000; display: flex; align-items: center; gap: 12px; background: rgba(255, 249, 240, 0.95); padding: 10px 15px; border-radius: 50px; box-shadow: 0 5px 20px rgba(0,0,0,0.4); backdrop-filter: blur(10px); border: 2px solid var(--maroon-bg); }
-        .vinyl-disc { width: 50px; height: 50px; border-radius: 50%; background: repeating-radial-gradient(#111, #111 2px, #333 3px, #333 4px); display: flex; justify-content: center; align-items: center; border: 2px solid var(--maroon-bg); }
-        .vinyl-disc.spinning { animation: spinVinyl 3s linear infinite; }
-        .vinyl-label { width: 20px; height: 20px; border-radius: 50%; background: var(--maroon-bg); border: 2px solid var(--paper-white); }
-        .vinyl-btn { background: var(--maroon-bg); color: var(--paper-white); border: none; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; font-size: 1.2rem; display: flex; align-items: center; justify-content: center; }
-        @keyframes spinVinyl { 100% { transform: rotate(360deg); } }
+        /* VINYL PLAYER - DESAIN BARU PAKAI SVG (BUKAN EMOJI) */
+        .vinyl-player { 
+            position: fixed; 
+            bottom: 20px; left: 20px; 
+            z-index: 1000; 
+            display: flex; 
+            align-items: center; 
+            gap: 10px; 
+            background: rgba(255, 249, 240, 0.95); 
+            padding: 8px 12px; 
+            border-radius: 50px; 
+            box-shadow: 0 5px 20px rgba(0,0,0,0.4); 
+            backdrop-filter: blur(10px); 
+            border: 2px solid var(--maroon-bg);
+        }
+
+        .vinyl-disc-container {
+            width: 44px; height: 44px;
+            border-radius: 50%;
+            background: repeating-radial-gradient(circle, #1a1a1a 0px, #1a1a1a 2px, #3a3a3a 3px, #3a3a3a 4px);
+            display: flex; justify-content: center; align-items: center;
+            border: 2px solid var(--maroon-bg);
+            position: relative;
+            flex-shrink: 0;
+        }
+
+        .vinyl-disc-container.spinning { animation: spinVinyl 3s linear infinite; }
+
+        .vinyl-center {
+            width: 16px; height: 16px;
+            border-radius: 50%;
+            background: var(--maroon-bg);
+            border: 2px solid var(--paper-white);
+        }
+
+        .vinyl-btn {
+            background: var(--maroon-bg);
+            border: none;
+            width: 36px; height: 36px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            transition: transform 0.2s ease;
+            flex-shrink: 0;
+        }
+
+        .vinyl-btn:active { transform: scale(0.92); }
+
+        .vinyl-btn svg { width: 18px; height: 18px; fill: white; }
+
+        @keyframes spinVinyl { to { transform: rotate(360deg); } }
 
         /* LANDING */
         #landing { position: fixed; top: 0; left: 0; width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 2000; background-color: var(--maroon-bg); transition: opacity 0.8s ease, transform 0.8s ease; }
@@ -68,8 +113,8 @@
         .page.exit-right { opacity: 0; transform: scale(0.9) translateX(30px); }
 
         /* NAVIGATION */
-        .nav-buttons { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); display: flex; gap: 20px; z-index: 999; }
-        .nav-btn { background: var(--paper-white); color: var(--maroon-bg); border: 2px solid var(--maroon-bg); padding: 12px 30px; font-family: 'Nunito', sans-serif; font-weight: 700; font-size: 1rem; border-radius: 50px; cursor: pointer; box-shadow: 3px 3px 0 var(--ink-black); transition: all 0.2s ease; }
+        .nav-buttons { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); display: flex; gap: 15px; z-index: 999; }
+        .nav-btn { background: var(--paper-white); color: var(--maroon-bg); border: 2px solid var(--maroon-bg); padding: 10px 24px; font-family: 'Nunito', sans-serif; font-weight: 700; font-size: 0.95rem; border-radius: 50px; cursor: pointer; box-shadow: 3px 3px 0 var(--ink-black); transition: all 0.2s ease; }
         .nav-btn:hover { transform: translate(-2px, -2px); box-shadow: 5px 5px 0 var(--ink-black); }
         .nav-btn.hidden { visibility: hidden; }
 
@@ -79,14 +124,14 @@
         .note-card::before { content: ''; position: absolute; top: -15px; left: 50%; transform: translateX(-50%); width: 100px; height: 30px; background: var(--tape-color); }
         .typewriter { font-size: 1.15rem; line-height: 1.9; min-height: 80px; font-weight: 600; color: var(--ink-black); }
 
-        /* PAGE 2 - 8 foto (GRID 4x2) */
+        /* PAGE 2 - 8 FOTO DENGAN OBJECT-FIT */
         .photos-intro { text-align: center; margin-bottom: 20px; }
         .photos-intro-text { font-family: 'Caveat', cursive; font-size: 2.5rem; color: var(--paper-white); text-shadow: 2px 2px 0 var(--ink-black); transform: rotate(-2deg); display: inline-block; }
         
         .polaroid-grid { 
             display: grid;
-            grid-template-columns: repeat(4, 1fr); /* PAKAI GRID BIAR PASTI 4 ATAS 4 BAWAH */
-            gap: 20px;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 18px;
             max-width: 680px;
             width: 100%;
             padding: 20px 0;
@@ -94,16 +139,25 @@
         
         .polaroid { 
             background: white; 
-            padding: 12px 12px 40px; 
+            padding: 10px 10px 35px; 
             box-shadow: 0 8px 20px rgba(0,0,0,0.3); 
-            aspect-ratio: 1/1.1; 
+            aspect-ratio: 1/1.15; 
             display: flex; 
             align-items: center; 
             justify-content: center; 
             font-family: 'Caveat', cursive; 
-            font-size: 1.1rem; 
+            font-size: 1rem; 
             color: #ccc; 
             transition: transform 0.3s ease;
+            overflow: hidden;
+        }
+        
+        /* INI YANG BIKIN FOTO FIT DI FRAME */
+        .polaroid img { 
+            width: 100%; 
+            height: 100%; 
+            object-fit: cover; 
+            display: block;
         }
         
         .polaroid:hover { transform: scale(1.05) rotate(0deg) !important; z-index: 10; }
@@ -117,16 +171,16 @@
         .polaroid:nth-child(7) { transform: rotate(-5deg); }
         .polaroid:nth-child(8) { transform: rotate(4deg); }
 
-        /* PAGE 3 - WISH CARD ONLY */
-        .page-content-scroll { display: flex; flex-direction: column; align-items: center; gap: 40px; max-height: 70vh; overflow-y: auto; padding: 20px; width: 100%; max-width: 600px; }
+        /* PAGE 3 - WISH CARD */
+        .page-content-scroll { display: flex; flex-direction: column; align-items: center; gap: 30px; max-height: 70vh; overflow-y: auto; padding: 20px; width: 100%; max-width: 600px; }
         .section-heading { font-family: 'Caveat', cursive; font-size: 2.8rem; color: var(--paper-white); text-align: center; text-shadow: 2px 2px 0 var(--ink-black); margin-bottom: 20px; }
-        .prayer-card { background: var(--paper-white); padding: 40px 30px; max-width: 500px; width: 100%; border-radius: 4px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); position: relative; transform: rotate(-1deg); }
+        .prayer-card { background: var(--paper-white); padding: 35px 28px; max-width: 500px; width: 100%; border-radius: 4px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); position: relative; transform: rotate(-1deg); }
         .prayer-card::after { content: ''; position: absolute; bottom: -10px; right: 20px; width: 80px; height: 25px; background: var(--tape-color); transform: rotate(3deg); }
-        .prayer-text { font-family: 'Amiri', serif; font-size: 1.3rem; line-height: 2; color: var(--ink-black); font-style: italic; }
-        .prayer-signature { margin-top: 25px; font-family: 'Caveat', cursive; font-size: 1.6rem; color: var(--maroon-bg); text-align: right; }
+        .prayer-text { font-family: 'Amiri', serif; font-size: 1.25rem; line-height: 1.9; color: var(--ink-black); font-style: italic; }
+        .prayer-signature { margin-top: 25px; font-family: 'Caveat', cursive; font-size: 1.5rem; color: var(--maroon-bg); text-align: right; }
 
         /* PAGE 4 - CAKE & CANDLES */
-        .cake-container { position: relative; margin: 30px 0; display: flex; flex-direction: column; align-items: center; }
+        .cake-container { position: relative; margin: 20px 0; display: flex; flex-direction: column; align-items: center; }
         .candles-row { display: flex; gap: 30px; margin-bottom: -10px; z-index: 2; }
         .candle { display: flex; flex-direction: column; align-items: center; cursor: pointer; user-select: none; position: relative; }
         .candle-flame { width: 16px; height: 28px; background: radial-gradient(ellipse at bottom, #ffeb3b 0%, #ff9800 40%, #ff5722 70%, transparent 100%); border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%; margin-bottom: 2px; animation: flicker 0.5s ease-in-out infinite alternate; filter: blur(1px); transition: opacity 0.8s ease, transform 0.8s ease; }
@@ -155,7 +209,7 @@
         .mood-label { margin-top: 12px; font-family: 'Caveat', cursive; font-size: 1.4rem; color: var(--maroon-bg); }
 
         /* PAGE 5 - WISH WALL */
-        .wish-wall { background: rgba(255,255,255,0.08); border-radius: 20px; padding: 40px 30px; border: 2px dashed var(--paper-white); text-align: center; max-width: 500px; width: 100%; margin-bottom: 30px; }
+        .wish-wall { background: rgba(255,255,255,0.08); border-radius: 20px; padding: 35px 25px; border: 2px dashed var(--paper-white); text-align: center; max-width: 500px; width: 100%; margin-bottom: 30px; }
         .wish-wall .section-heading { margin-bottom: 15px; }
         .wish-wall-subtitle { color: var(--paper-white); opacity: 0.8; margin-bottom: 20px; font-size: 0.95rem; }
         .wish-input { width: 100%; background: var(--paper-white); border: none; border-radius: 12px; padding: 18px; font-family: 'Nunito', sans-serif; font-size: 1rem; resize: none; height: 100px; margin-bottom: 20px; outline: none; color: var(--ink-black); }
@@ -168,20 +222,91 @@
         .confetti-piece { position: fixed; width: 8px; height: 8px; pointer-events: none; z-index: 9999; animation: confettiFall 2.5s ease-out forwards; }
         @keyframes confettiFall { 0% { transform: translateY(0) rotate(0deg); opacity: 1; } 100% { transform: translateY(100vh) rotate(720deg); opacity: 0; } }
 
-        /* RESPONSIVE */
+        /* ===== RESPONSIVE MOBILE ===== */
         @media (max-width: 600px) {
-            .page-title { font-size: 3rem; }
-            .polaroid-grid { grid-template-columns: repeat(2, 1fr); gap: 15px; } /* Di HP jadi 2x4 */
-            .sticker-btn { font-size: 1.6rem; padding: 15px 40px; }
-            .vinyl-player { bottom: 10px; left: 10px; padding: 8px 12px; }
-            .vinyl-disc { width: 40px; height: 40px; }
-            .vinyl-btn { width: 35px; height: 35px; font-size: 1rem; }
+            .page { padding: 50px 20px 90px; }
+            .page-title { font-size: 2.8rem; margin-bottom: 25px; }
+            .note-card { padding: 25px 20px; }
+            .typewriter { font-size: 1rem; }
+            
+            /* Polaroid grid jadi 2 kolom di HP */
+            .polaroid-grid { grid-template-columns: repeat(2, 1fr); gap: 15px; max-width: 340px; }
+            .polaroid { padding: 8px 8px 30px; }
             .photos-intro-text { font-size: 2rem; }
-            .nav-btn { padding: 10px 22px; font-size: 0.9rem; }
-            .section-heading { font-size: 2.2rem; }
-            .cake { transform: scale(0.85); }
-            .page { padding: 60px 40px 100px; }
-            .side-ornament { opacity: 0.3; }
+            
+            /* Section heading lebih kecil */
+            .section-heading { font-size: 2.2rem; margin-bottom: 15px; }
+            
+            /* Prayer card lebih kecil */
+            .prayer-card { padding: 25px 20px; }
+            .prayer-text { font-size: 1.1rem; line-height: 1.8; }
+            .prayer-signature { font-size: 1.3rem; }
+            
+            /* Cake lebih kecil */
+            .cake { transform: scale(0.8); margin: 10px 0; }
+            .candles-row { gap: 20px; }
+            .blow-hint { font-size: 1.3rem; }
+            .mood-heading { font-size: 1.6rem; }
+            .mood-slider-container { padding: 20px; }
+            
+            /* Wish wall lebih kecil */
+            .wish-wall { padding: 25px 20px; }
+            .footer-doodle { font-size: 1.4rem; }
+            
+            /* NAV BUTTONS - pindah ke atas dikit biar gak numpuk */
+            .nav-buttons { bottom: 15px; gap: 10px; }
+            .nav-btn { padding: 8px 18px; font-size: 0.85rem; }
+            
+            /* VINYL PLAYER - pindah ke KANAN ATAS di HP */
+            .vinyl-player {
+                bottom: auto;
+                top: 12px;
+                left: auto;
+                right: 12px;
+                padding: 6px 10px;
+                gap: 8px;
+            }
+            .vinyl-disc-container { width: 36px; height: 36px; }
+            .vinyl-center { width: 14px; height: 14px; }
+            .vinyl-btn { width: 32px; height: 32px; }
+            .vinyl-btn svg { width: 14px; height: 14px; }
+            
+            /* Ornamen dikecilin */
+            .side-ornament { opacity: 0.25; }
+            .ornament-shape { transform: scale(0.7); }
+            
+            .doodle { font-size: 2rem; }
+            .sticker-btn { font-size: 1.6rem; padding: 15px 35px; }
+        }
+
+        /* ===== RESPONSIVE LANDSCAPE HP ===== */
+        @media (max-height: 500px) and (orientation: landscape) {
+            .page { padding: 30px 40px; justify-content: flex-start; overflow-y: auto; }
+            .page-title { font-size: 2.2rem; margin-bottom: 15px; }
+            .note-card { padding: 20px; margin-bottom: 20px; }
+            .typewriter { font-size: 0.95rem; min-height: auto; }
+            
+            .polaroid-grid { gap: 10px; padding: 10px 0; }
+            .polaroid { padding: 6px 6px 25px; }
+            
+            .cake { transform: scale(0.65); }
+            .section-heading { font-size: 1.8rem; margin-bottom: 10px; }
+            
+            .prayer-card { padding: 20px; max-height: 60vh; overflow-y: auto; }
+            .prayer-text { font-size: 1rem; }
+            
+            .nav-buttons { bottom: 10px; }
+            .vinyl-player { top: 8px; right: 8px; padding: 5px 8px; }
+            .vinyl-disc-container { width: 32px; height: 32px; }
+            .vinyl-btn { width: 28px; height: 28px; }
+        }
+
+        /* ===== TABLET ===== */
+        @media (min-width: 601px) and (max-width: 1024px) {
+            .page { padding: 60px 50px 100px; }
+            .page-title { font-size: 3.5rem; }
+            .polaroid-grid { max-width: 550px; gap: 18px; }
+            .section-heading { font-size: 2.5rem; }
         }
     </style>
 </head>
@@ -202,10 +327,17 @@
         <svg class="ornament-shape" width="22" height="22" viewBox="0 0 24 24"><path class="shape-sparkle" d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5L12 2Z"/></svg>
     </div>
 
-    <!-- VINYL PLAYER -->
+    <!-- VINYL PLAYER DENGAN SVG ICON (BUKAN EMOJI) -->
     <div class="vinyl-player">
-        <div class="vinyl-disc" id="vinylDisc"><div class="vinyl-label"></div></div>
-        <button class="vinyl-btn" id="vinylBtn" onclick="toggleVinyl()">▶</button>
+        <div class="vinyl-disc-container" id="vinylDisc">
+            <div class="vinyl-center"></div>
+        </div>
+        <button class="vinyl-btn" id="vinylBtn" onclick="toggleVinyl()" aria-label="Play/Pause">
+            <!-- Icon Play (SVG) -->
+            <svg id="playIcon" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            <!-- Icon Pause (SVG, hidden by default) -->
+            <svg id="pauseIcon" viewBox="0 0 24 24" style="display:none;"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+        </button>
         <audio id="vinylAudio" loop><source src="audio/lagu.mp3" type="audio/mpeg"></audio>
     </div>
 
@@ -223,7 +355,7 @@
         <div class="note-card"><p id="typewriter" class="typewriter"></p></div>
     </div>
 
-        <!-- PAGE 2 - 8 foto (4 ATAS 4 BAWAH) -->
+    <!-- PAGE 2 - 8 FOTO -->
     <div class="page" id="page2">
         <div class="photos-intro"><div class="photos-intro-text">These are my 8 favorite photos.</div></div>
         <div class="polaroid-grid">
@@ -238,7 +370,7 @@
         </div>
     </div>
 
-    <!-- PAGE 3 - WISH CARD ONLY -->
+    <!-- PAGE 3 - WISH CARD -->
     <div class="page" id="page3">
         <div class="page-content-scroll">
             <div>
@@ -263,16 +395,12 @@
             <div class="cake" onclick="blowAllCandles()"><div class="cake-top"></div><div class="cake-bottom"></div></div>
             <div class="cake-plate"></div>
         </div>
-        <div class="blow-hint" id="blowHint">Klik lilin atau kuenya buat tiup! </div>
+        <div class="blow-hint" id="blowHint">Klik lilin atau kuenya buat tiup! 🎂</div>
         <div class="mood-section" id="moodSection">
             <h3 class="mood-heading">Gimana perasaannya hari ini ulang tahun ke 27?</h3>
             <div class="mood-slider-container">
                 <div class="mood-emojis">
-                    <span>😢</span>
-                    <span>😐</span>
-                    <span>🙂</span>
-                    <span>😊</span>
-                    <span></span>
+                    <span>😢</span><span>😐</span><span>🙂</span><span>😊</span><span>🥳</span>
                 </div>
                 <input type="range" min="1" max="5" value="1" class="mood-range" id="moodSlider" oninput="updateMood(this.value)">
                 <div class="mood-label" id="moodLabel">Sedih 😢</div>
@@ -284,7 +412,7 @@
     <div class="page" id="page5">
         <div class="wish-wall">
             <h2 class="section-heading">Wish Wall ✨</h2>
-            <p class="wish-wall-subtitle">Tulis harapan buat dirimu sendiri tahun depan 🔒</p>
+            <p class="wish-wall-subtitle">Tulis harapan buat dirimu sendiri tahun depan </p>
             <textarea class="wish-input" id="wishInput" placeholder="Aku berharap..."></textarea>
             <button class="save-wish-btn" onclick="saveWish()">Simpan Harapan</button>
         </div>
@@ -307,7 +435,7 @@
         // FALLING HEARTS
         function createFallingHearts() {
             const container = document.getElementById('fallingHearts');
-            const hearts = ['💕', '💖', '🤍', '✨', '💝'];
+            const hearts = ['💕', '💖', '', '✨', '💝'];
             for (let i = 0; i < 20; i++) {
                 const heart = document.createElement('div');
                 heart.className = 'falling-heart';
@@ -320,16 +448,25 @@
             }
         }
 
-        // VINYL PLAYER
+        // VINYL PLAYER DENGAN SVG ICON
         function toggleVinyl() {
             const audio = document.getElementById('vinylAudio');
-            const btn = document.getElementById('vinylBtn');
             const disc = document.getElementById('vinylDisc');
+            const playIcon = document.getElementById('playIcon');
+            const pauseIcon = document.getElementById('pauseIcon');
+            
             if (!vinylPlaying) {
                 audio.play().catch(e => console.log('Autoplay blocked:', e));
-                btn.textContent = '⏸'; disc.classList.add('spinning'); vinylPlaying = true;
+                disc.classList.add('spinning');
+                playIcon.style.display = 'none';
+                pauseIcon.style.display = 'block';
+                vinylPlaying = true;
             } else {
-                audio.pause(); btn.textContent = '▶'; disc.classList.remove('spinning'); vinylPlaying = false;
+                audio.pause();
+                disc.classList.remove('spinning');
+                playIcon.style.display = 'block';
+                pauseIcon.style.display = 'none';
+                vinylPlaying = false;
             }
         }
 
@@ -341,10 +478,11 @@
                 showPage(1);
                 setTimeout(() => {
                     const vinylAudio = document.getElementById('vinylAudio');
-                    const vinylBtn = document.getElementById('vinylBtn');
-                    const vinylDisc = document.getElementById('vinylDisc');
                     vinylAudio.play().then(() => {
-                        vinylBtn.textContent = '⏸'; vinylDisc.classList.add('spinning'); vinylPlaying = true;
+                        document.getElementById('vinylDisc').classList.add('spinning');
+                        document.getElementById('playIcon').style.display = 'none';
+                        document.getElementById('pauseIcon').style.display = 'block';
+                        vinylPlaying = true;
                     }).catch(e => console.log('Autoplay diblokir:', e));
                 }, 500);
             }, 400);
@@ -429,7 +567,7 @@
         function checkAllCandlesBlown() {
             if (candlesBlown >= 3) {
                 setTimeout(() => {
-                    document.getElementById('blowHint').textContent = 'Happy Birthday! Semoga semua keinginanmu terkabul! ';
+                    document.getElementById('blowHint').textContent = 'Happy Birthday! Semoga semua keinginanmu terkabul! 🎉';
                     document.getElementById('blowHint').style.color = '#FFD700';
                     document.getElementById('moodSection').classList.add('visible');
                     createBigConfetti();
@@ -478,7 +616,7 @@
         }
 
         // MOOD
-        const moodLabels = ['', 'Sedih ', 'Biasa Aja 😐', 'Lumayan 🙂', 'Senang 😊', 'Bahagia Banget 🥳'];
+        const moodLabels = ['', 'Sedih 😢', 'Biasa Aja 😐', 'Lumayan 🙂', 'Senang 😊', 'Bahagia Banget 🥳'];
         function updateMood(val) { document.getElementById('moodLabel').textContent = moodLabels[val]; }
 
         // WISH WALL
