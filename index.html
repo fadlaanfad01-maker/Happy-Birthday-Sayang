@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Untuk Regina</title>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Nunito:wght@400;600;800&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --maroon-bg: #8B2238;
+            --paper-white: #FFF9F0;
+            --ink-black: #2D1A1A;
+            --accent-pink: #FF6B8B;
+            --tape-color: rgba(255, 255, 255, 0.4);
+            --gold-muted: #C9A96E;
+            --cassette-dark: #4A1525;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            background-color: var(--maroon-bg);
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.08'/%3E%3C/svg%3E");
+            color: var(--ink-black);
+            font-family: 'Nunito', sans-serif;
+            overflow: hidden;
+            min-height: 100vh;
+            height: 100vh;
+        }
+
+        /* FALLING HEARTS */
+        .falling-hearts { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1; overflow: hidden; }
+        .falling-heart { position: absolute; top: -20px; color: rgba(255, 255, 255, 0.15); font-size: 20px; animation: fall linear infinite; }
+        @keyframes fall { 0% { transform: translateY(-20px) rotate(0deg); opacity: 0; } 10% { opacity: 1; } 90% { opacity: 1; } 100% { transform: translateY(100vh) rotate(360deg); opacity: 0; } }
+
+        /* SIDE ORNAMENTS */
+        .side-ornament { position: fixed; z-index: 2; pointer-events: none; }
+        .ornament-shape { position: absolute; opacity: 0.5; animation: floatShape 4s ease-in-out infinite; }
+        .ornament-shape:nth-child(1) { top: 15%; animation-delay: 0s; }
+        .ornament-shape:nth-child(2) { top: 55%; animation-delay: 1.5s; }
+        .ornament-shape:nth-child(3) { top: 85%; animation-delay: 3s; }
+        .left-ornaments { left: 3%; } .right-ornaments { right: 3%; }
+        .shape-heart { fill: var(--accent-pink); } .shape-star { fill: var(--gold-muted); } .shape-sparkle { fill: var(--paper-white); }
+        @keyframes floatShape { 0%, 100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-15px) rotate(10deg); } }
+
+        /* VINYL PLAYER */
+        .vinyl-player { position: fixed; bottom: 20px; left: 20px; z-index: 1000; display: flex; align-items: center; gap: 12px; background: rgba(255, 249, 240, 0.95); padding: 10px 15px; border-radius: 50px; box-shadow: 0 5px 20px rgba(0,0,0,0.4); backdrop-filter: blur(10px); border: 2px solid var(--maroon-bg); }
+        .vinyl-disc { width: 50px; height: 50px; border-radius: 50%; background: repeating-radial-gradient(#111, #111 2px, #333 3px, #333 4px); display: flex; justify-content: center; align-items: center; border: 2px solid var(--maroon-bg); }
+        .vinyl-disc.spinning { animation: spinVinyl 3s linear infinite; }
+        .vinyl-label { width: 20px; height: 20px; border-radius: 50%; background: var(--maroon-bg); border: 2px solid var(--paper-white); }
+        .vinyl-btn { background: var(--maroon-bg); color: var(--paper-white); border: none; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; font-size: 1.2rem; display: flex; align-items: center; justify-content: center; }
+        @keyframes spinVinyl { 100% { transform: rotate(360deg); } }
+
+        /* LANDING */
+        #landing { position: fixed; top: 0; left: 0; width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 2000; background-color: var(--maroon-bg); transition: opacity 0.8s ease, transform 0.8s ease; }
+        #landing.hidden { opacity: 0; transform: scale(1.1); pointer-events: none; }
+        .sticker-btn { background: var(--paper-white); color: var(--maroon-bg); border: none; padding: 20px 50px; font-family: 'Caveat', cursive; font-size: 2rem; font-weight: 700; cursor: pointer; transform: rotate(-3deg); box-shadow: 5px 5px 0px var(--ink-black); transition: all 0.3s ease; }
+        .sticker-btn:hover { transform: rotate(0deg) scale(1.05); box-shadow: 8px 8px 0px var(--ink-black); }
+        .doodle { position: absolute; font-size: 3rem; opacity: 0.8; animation: float 4s ease-in-out infinite; pointer-events: none; }
+        .doodle-1 { top: 20%; left: 15%; } .doodle-2 { bottom: 25%; right: 10%; animation-delay: 1s; } .doodle-3 { top: 30%; right: 20%; animation-delay: 2s; font-size: 2rem; }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+
+        /* PAGE SYSTEM */
+        .page { position: fixed; top: 0; left: 0; width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 60px 80px 100px; overflow-y: auto; opacity: 0; transform: scale(0.95); pointer-events: none; transition: opacity 0.6s ease, transform 0.6s ease; z-index: 10; }
+        .page.active { opacity: 1; transform: scale(1); pointer-events: auto; }
+        .page.exit-left { opacity: 0; transform: scale(0.9) translateX(-30px); }
+        .page.exit-right { opacity: 0; transform: scale(0.9) translateX(30px); }
+
+        /* NAVIGATION */
+        .nav-buttons { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); display: flex; gap: 20px; z-index: 999; }
+        .nav-btn { background: var(--paper-white); color: var(--maroon-bg); border: 2px solid var(--maroon-bg); padding: 12px 30px; font-family: 'Nunito', sans-serif; font-weight: 700; font-size: 1rem; border-radius: 50px; cursor: pointer; box-shadow: 3px 3px 0 var(--ink-black); transition: all 0.2s ease; }
+        .nav-btn:hover { transform: translate(-2px, -2px); box-shadow: 5px 5px 0 var(--ink-black); }
+        .nav-btn.hidden { visibility: hidden; }
+
+        /* PAGE 1 */
+        .page-title { font-family: 'Caveat', cursive; font-size: 4rem; text-align: center; color: var(--paper-white); margin-bottom: 40px; text-shadow: 3px 3px 0 var(--ink-black); transform: rotate(2deg); line-height: 1.1; }
+        .note-card { background: var(--paper-white); padding: 35px 30px; max-width: 500px; width: 100%; position: relative; box-shadow: 0 10px 30px rgba(0,0,0,0.2); transform: rotate(1deg); }
+        .note-card::before { content: ''; position: absolute; top: -15px; left: 50%; transform: translateX(-50%); width: 100px; height: 30px; background: var(--tape-color); }
+        .typewriter { font-size: 1.15rem; line-height: 1.9; min-height: 80px; font-weight: 600; color: var(--ink-black); }
+
+        /* PAGE 2 - 8 FOTO (GRID 4x2) */
+        .photos-intro { text-align: center; margin-bottom: 20px; }
+        .photos-intro-text { font-family: 'Caveat', cursive; font-size: 2.5rem; color: var(--paper-white); text-shadow: 2px 2px 0 var(--ink-black); transform: rotate(-2deg); display: inline-block; }
+        
+        .polaroid-grid { 
+            display: grid;
+            grid-template-columns: repeat(4, 1fr); /* PAKAI GRID BIAR PASTI 4 ATAS 4 BAWAH */
+            gap: 20px;
+            max-width: 680px;
+            width: 100%;
+            padding: 20px 0;
+        }
+        
+        .polaroid { 
+            background: white; 
+            padding: 12px 12px 40px; 
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3); 
+            aspect-ratio: 1/1.1; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            font-family: 'Caveat', cursive; 
+            font-size: 1.1rem; 
+            color: #ccc; 
+            transition: transform 0.3s ease;
+        }
+        
+        .polaroid:hover { transform: scale(1.05) rotate(0deg) !important; z-index: 10; }
+        
+        .polaroid:nth-child(1) { transform: rotate(-4deg); }
+        .polaroid:nth-child(2) { transform: rotate(3deg); }
+        .polaroid:nth-child(3) { transform: rotate(-2deg); }
+        .polaroid:nth-child(4) { transform: rotate(5deg); }
+        .polaroid:nth-child(5) { transform: rotate(-3deg); }
+        .polaroid:nth-child(6) { transform: rotate(2deg); }
+        .polaroid:nth-child(7) { transform: rotate(-5deg); }
+        .polaroid:nth-child(8) { transform: rotate(4deg); }
+
+        /* PAGE 3 - WISH CARD ONLY */
+        .page-content-scroll { display: flex; flex-direction: column; align-items: center; gap: 40px; max-height: 70vh; overflow-y: auto; padding: 20px; width: 100%; max-width: 600px; }
+        .section-heading { font-family: 'Caveat', cursive; font-size: 2.8rem; color: var(--paper-white); text-align: center; text-shadow: 2px 2px 0 var(--ink-black); margin-bottom: 20px; }
+        .prayer-card { background: var(--paper-white); padding: 40px 30px; max-width: 500px; width: 100%; border-radius: 4px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); position: relative; transform: rotate(-1deg); }
+        .prayer-card::after { content: ''; position: absolute; bottom: -10px; right: 20px; width: 80px; height: 25px; background: var(--tape-color); transform: rotate(3deg); }
+        .prayer-text { font-family: 'Amiri', serif; font-size: 1.3rem; line-height: 2; color: var(--ink-black); font-style: italic; }
+        .prayer-signature { margin-top: 25px; font-family: 'Caveat', cursive; font-size: 1.6rem; color: var(--maroon-bg); text-align: right; }
+
+        /* PAGE 4 - CAKE & CANDLES */
+        .cake-container { position: relative; margin: 30px 0; display: flex; flex-direction: column; align-items: center; }
+        .candles-row { display: flex; gap: 30px; margin-bottom: -10px; z-index: 2; }
+        .candle { display: flex; flex-direction: column; align-items: center; cursor: pointer; user-select: none; position: relative; }
+        .candle-flame { width: 16px; height: 28px; background: radial-gradient(ellipse at bottom, #ffeb3b 0%, #ff9800 40%, #ff5722 70%, transparent 100%); border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%; margin-bottom: 2px; animation: flicker 0.5s ease-in-out infinite alternate; filter: blur(1px); transition: opacity 0.8s ease, transform 0.8s ease; }
+        .candle-flame.blown { opacity: 0; transform: translateY(-15px) scale(0.5); }
+        .candle-smoke { position: absolute; top: -20px; width: 6px; height: 30px; background: rgba(200, 200, 200, 0.5); border-radius: 50%; filter: blur(3px); opacity: 0; pointer-events: none; }
+        .candle-smoke.rise { animation: smokeRise 2s ease-out forwards; }
+        .candle-stick { width: 14px; height: 50px; background: linear-gradient(to right, #f5e6d3, #fff8f0, #f5e6d3); border-radius: 3px 3px 2px 2px; position: relative; }
+        .candle-stick::before { content: ''; position: absolute; top: -4px; left: 50%; transform: translateX(-50%); width: 3px; height: 6px; background: #333; }
+        @keyframes flicker { 0% { transform: scaleX(1) scaleY(1) rotate(-2deg); } 100% { transform: scaleX(0.9) scaleY(1.1) rotate(2deg); } }
+        @keyframes smokeRise { 0% { opacity: 0.6; transform: translateX(-50%) translateY(0) scaleX(1); } 100% { opacity: 0; transform: translateX(-50%) translateY(-40px) scaleX(2); } }
+
+        .cake { position: relative; width: 200px; height: 140px; display: flex; flex-direction: column; align-items: center; cursor: pointer; }
+        .cake-top { width: 180px; height: 60px; background: linear-gradient(to bottom, #FFB6C1, #FF6B8B); border-radius: 10px 10px 0 0; position: relative; }
+        .cake-top::before { content: ''; position: absolute; top: -8px; left: 0; right: 0; height: 15px; background: repeating-linear-gradient(90deg, #FFF9F0 0px, #FFF9F0 15px, #FF6B8B 15px, #FF6B8B 20px); border-radius: 8px 8px 0 0; }
+        .cake-bottom { width: 200px; height: 80px; background: linear-gradient(to bottom, #FFF9F0, #F5E6D3); border-radius: 0 0 10px 10px; }
+        .cake-plate { width: 240px; height: 15px; background: #DDD; border-radius: 50%; margin-top: -5px; box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
+        .blow-hint { font-family: 'Caveat', cursive; font-size: 1.5rem; color: var(--paper-white); text-shadow: 1px 1px 0 var(--ink-black); margin-top: 20px; text-align: center; }
+
+        .mood-section { margin-top: 30px; text-align: center; opacity: 0; transform: translateY(20px); transition: opacity 0.8s ease, transform 0.8s ease; pointer-events: none; max-width: 400px; width: 100%; }
+        .mood-section.visible { opacity: 1; transform: translateY(0); pointer-events: auto; }
+        .mood-heading { font-family: 'Caveat', cursive; font-size: 2rem; color: var(--paper-white); text-shadow: 2px 2px 0 var(--ink-black); margin-bottom: 15px; }
+        .mood-slider-container { background: var(--paper-white); border-radius: 20px; padding: 25px 30px; box-shadow: 0 8px 25px rgba(0,0,0,0.2); transform: rotate(1deg); }
+        .mood-emojis { display: flex; justify-content: space-between; margin-bottom: 15px; font-size: 2rem; }
+        .mood-range { width: 100%; height: 8px; background: #ddd; border-radius: 4px; outline: none; -webkit-appearance: none; }
+        .mood-range::-webkit-slider-thumb { -webkit-appearance: none; width: 28px; height: 28px; background: var(--maroon-bg); border-radius: 50%; cursor: pointer; border: 3px solid var(--paper-white); }
+        .mood-label { margin-top: 12px; font-family: 'Caveat', cursive; font-size: 1.4rem; color: var(--maroon-bg); }
+
+        /* PAGE 5 - WISH WALL */
+        .wish-wall { background: rgba(255,255,255,0.08); border-radius: 20px; padding: 40px 30px; border: 2px dashed var(--paper-white); text-align: center; max-width: 500px; width: 100%; margin-bottom: 30px; }
+        .wish-wall .section-heading { margin-bottom: 15px; }
+        .wish-wall-subtitle { color: var(--paper-white); opacity: 0.8; margin-bottom: 20px; font-size: 0.95rem; }
+        .wish-input { width: 100%; background: var(--paper-white); border: none; border-radius: 12px; padding: 18px; font-family: 'Nunito', sans-serif; font-size: 1rem; resize: none; height: 100px; margin-bottom: 20px; outline: none; color: var(--ink-black); }
+        .save-wish-btn { background: var(--accent-pink); color: white; border: none; padding: 14px 40px; font-family: 'Nunito', sans-serif; font-weight: 800; font-size: 1.1rem; border-radius: 50px; cursor: pointer; box-shadow: 3px 3px 0 var(--ink-black); transition: all 0.2s ease; }
+        .save-wish-btn:hover { transform: translate(-2px, -2px); box-shadow: 5px 5px 0 var(--ink-black); }
+
+        .footer-doodle { text-align: center; font-family: 'Caveat', cursive; font-size: 1.8rem; color: var(--paper-white); opacity: 0.7; }
+
+        /* CONFETTI */
+        .confetti-piece { position: fixed; width: 8px; height: 8px; pointer-events: none; z-index: 9999; animation: confettiFall 2.5s ease-out forwards; }
+        @keyframes confettiFall { 0% { transform: translateY(0) rotate(0deg); opacity: 1; } 100% { transform: translateY(100vh) rotate(720deg); opacity: 0; } }
+
+        /* RESPONSIVE */
+        @media (max-width: 600px) {
+            .page-title { font-size: 3rem; }
+            .polaroid-grid { grid-template-columns: repeat(2, 1fr); gap: 15px; } /* Di HP jadi 2x4 */
+            .sticker-btn { font-size: 1.6rem; padding: 15px 40px; }
+            .vinyl-player { bottom: 10px; left: 10px; padding: 8px 12px; }
+            .vinyl-disc { width: 40px; height: 40px; }
+            .vinyl-btn { width: 35px; height: 35px; font-size: 1rem; }
+            .photos-intro-text { font-size: 2rem; }
+            .nav-btn { padding: 10px 22px; font-size: 0.9rem; }
+            .section-heading { font-size: 2.2rem; }
+            .cake { transform: scale(0.85); }
+            .page { padding: 60px 40px 100px; }
+            .side-ornament { opacity: 0.3; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- FALLING HEARTS -->
+    <div class="falling-hearts" id="fallingHearts"></div>
+
+    <!-- SIDE ORNAMENTS -->
+    <div class="side-ornament left-ornaments">
+        <svg class="ornament-shape" width="35" height="35" viewBox="0 0 24 24"><path class="shape-heart" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+        <svg class="ornament-shape" width="25" height="25" viewBox="0 0 24 24"><path class="shape-sparkle" d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5L12 2Z"/></svg>
+        <svg class="ornament-shape" width="30" height="30" viewBox="0 0 24 24"><path class="shape-star" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+    </div>
+    <div class="side-ornament right-ornaments">
+        <svg class="ornament-shape" width="28" height="28" viewBox="0 0 24 24"><path class="shape-star" d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        <svg class="ornament-shape" width="32" height="32" viewBox="0 0 24 24"><path class="shape-heart" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+        <svg class="ornament-shape" width="22" height="22" viewBox="0 0 24 24"><path class="shape-sparkle" d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5L12 2Z"/></svg>
+    </div>
+
+    <!-- VINYL PLAYER -->
+    <div class="vinyl-player">
+        <div class="vinyl-disc" id="vinylDisc"><div class="vinyl-label"></div></div>
+        <button class="vinyl-btn" id="vinylBtn" onclick="toggleVinyl()">▶</button>
+        <audio id="vinylAudio" loop><source src="audio/lagu.mp3" type="audio/mpeg"></audio>
+    </div>
+
+    <!-- LANDING -->
+    <div id="landing">
+        <div class="doodle doodle-1">✨</div>
+        <div class="doodle doodle-2">🎂</div>
+        <div class="doodle doodle-3">💌</div>
+        <button class="sticker-btn" onclick="openWebsite()">Buka Pesan</button>
+    </div>
+
+    <!-- PAGE 1 -->
+    <div class="page" id="page1">
+        <h1 class="page-title">Happy Birthday<br>Sayang 🤍</h1>
+        <div class="note-card"><p id="typewriter" class="typewriter"></p></div>
+    </div>
+
+    <!-- PAGE 2 - 8 FOTO (4 ATAS 4 BAWAH) -->
+    <div class="page" id="page2">
+        <div class="photos-intro"><div class="photos-intro-text">These are my 8 favorite photos.</div></div>
+        <div class="polaroid-grid">
+            <div class="polaroid">Foto 1</div>
+            <div class="polaroid">Foto 2</div>
+            <div class="polaroid">Foto 3</div>
+            <div class="polaroid">Foto 4</div>
+            <div class="polaroid">Foto 5</div>
+            <div class="polaroid">Foto 6</div>
+            <div class="polaroid">Foto 7</div>
+            <div class="polaroid">Foto 8</div>
+        </div>
+    </div>
+
+    <!-- PAGE 3 - WISH CARD ONLY -->
+    <div class="page" id="page3">
+        <div class="page-content-scroll">
+            <div>
+                <h2 class="section-heading">Wish dari aku buat kamu</h2>
+                <div class="prayer-card">
+                    <p class="prayer-text">Buat kamu aku berdoa untuk jadi yang terbaik dari diri kamu, doa yang kamu minta semoga di kabulin sama Allah, selalu sehat buat kamu jaga diri jaga hati buat aku, selalu di tenangin hatinya kalo lagi ada masalah, doanya juga semua cita cita yang kamu mau dari diri kamu maupun yang akan kita bangun sama sama semuanya terwujud satu persatu, dan yang terpenting cepet lulus ya S2 nya sayang, I LOVE U SO MUCH 🤍 sekali lagi Happy Birthday ya!!</p>
+                    <div class="prayer-signature">- Your Beloved</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PAGE 4 - CAKE & CANDLES -->
+    <div class="page" id="page4">
+        <h2 class="section-heading">Tiup Lilinnya</h2>
+        <div class="cake-container">
+            <div class="candles-row">
+                <div class="candle" onclick="blowCandle(this)"><div class="candle-smoke"></div><div class="candle-flame"></div><div class="candle-stick"></div></div>
+                <div class="candle" onclick="blowCandle(this)"><div class="candle-smoke"></div><div class="candle-flame"></div><div class="candle-stick"></div></div>
+                <div class="candle" onclick="blowCandle(this)"><div class="candle-smoke"></div><div class="candle-flame"></div><div class="candle-stick"></div></div>
+            </div>
+            <div class="cake" onclick="blowAllCandles()"><div class="cake-top"></div><div class="cake-bottom"></div></div>
+            <div class="cake-plate"></div>
+        </div>
+        <div class="blow-hint" id="blowHint">Klik lilin atau kuenya buat tiup! </div>
+        <div class="mood-section" id="moodSection">
+            <h3 class="mood-heading">Gimana perasaannya hari ini ulang tahun ke 27?</h3>
+            <div class="mood-slider-container">
+                <div class="mood-emojis">
+                    <span>😢</span>
+                    <span>😐</span>
+                    <span>🙂</span>
+                    <span>😊</span>
+                    <span></span>
+                </div>
+                <input type="range" min="1" max="5" value="1" class="mood-range" id="moodSlider" oninput="updateMood(this.value)">
+                <div class="mood-label" id="moodLabel">Sedih 😢</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PAGE 5 - WISH WALL -->
+    <div class="page" id="page5">
+        <div class="wish-wall">
+            <h2 class="section-heading">Wish Wall ✨</h2>
+            <p class="wish-wall-subtitle">Tulis harapan buat dirimu sendiri tahun depan 🔒</p>
+            <textarea class="wish-input" id="wishInput" placeholder="Aku berharap..."></textarea>
+            <button class="save-wish-btn" onclick="saveWish()">Simpan Harapan</button>
+        </div>
+        <div class="footer-doodle">made with love 🤍</div>
+    </div>
+
+    <!-- NAVIGATION -->
+    <div class="nav-buttons" id="navButtons" style="display: none;">
+        <button class="nav-btn hidden" id="backBtn" onclick="goBack()">← Back</button>
+        <button class="nav-btn" id="nextBtn" onclick="goNext()">Next →</button>
+    </div>
+
+    <script>
+        let currentPage = 0;
+        const totalPages = 5;
+        let candlesBlown = 0;
+        let typewriterStarted = false;
+        let vinylPlaying = false;
+
+        // FALLING HEARTS
+        function createFallingHearts() {
+            const container = document.getElementById('fallingHearts');
+            const hearts = ['💕', '💖', '🤍', '✨', '💝'];
+            for (let i = 0; i < 20; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'falling-heart';
+                heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+                heart.style.left = Math.random() * 100 + '%';
+                heart.style.animationDuration = (8 + Math.random() * 12) + 's';
+                heart.style.animationDelay = Math.random() * 10 + 's';
+                heart.style.fontSize = (15 + Math.random() * 15) + 'px';
+                container.appendChild(heart);
+            }
+        }
+
+        // VINYL PLAYER
+        function toggleVinyl() {
+            const audio = document.getElementById('vinylAudio');
+            const btn = document.getElementById('vinylBtn');
+            const disc = document.getElementById('vinylDisc');
+            if (!vinylPlaying) {
+                audio.play().catch(e => console.log('Autoplay blocked:', e));
+                btn.textContent = '⏸'; disc.classList.add('spinning'); vinylPlaying = true;
+            } else {
+                audio.pause(); btn.textContent = '▶'; disc.classList.remove('spinning'); vinylPlaying = false;
+            }
+        }
+
+        // OPEN WEBSITE
+        function openWebsite() {
+            document.getElementById('landing').classList.add('hidden');
+            document.getElementById('navButtons').style.display = 'flex';
+            setTimeout(() => {
+                showPage(1);
+                setTimeout(() => {
+                    const vinylAudio = document.getElementById('vinylAudio');
+                    const vinylBtn = document.getElementById('vinylBtn');
+                    const vinylDisc = document.getElementById('vinylDisc');
+                    vinylAudio.play().then(() => {
+                        vinylBtn.textContent = '⏸'; vinylDisc.classList.add('spinning'); vinylPlaying = true;
+                    }).catch(e => console.log('Autoplay diblokir:', e));
+                }, 500);
+            }, 400);
+        }
+
+        // PAGE NAVIGATION
+        function showPage(pageNum) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active', 'exit-left', 'exit-right'));
+            const targetPage = document.getElementById('page' + pageNum);
+            if (targetPage) targetPage.classList.add('active');
+            currentPage = pageNum;
+            updateNavButtons();
+            if (pageNum === 1 && !typewriterStarted) { typewriterStarted = true; setTimeout(typeWriter, 500); }
+            if (pageNum === 4) resetCandles();
+        }
+
+        function goNext() {
+            if (currentPage < totalPages) {
+                const current = document.getElementById('page' + currentPage);
+                current.classList.add('exit-left');
+                setTimeout(() => showPage(currentPage + 1), 300);
+            }
+        }
+
+        function goBack() {
+            if (currentPage > 1) {
+                const current = document.getElementById('page' + currentPage);
+                current.classList.add('exit-right');
+                setTimeout(() => showPage(currentPage - 1), 300);
+            }
+        }
+
+        function updateNavButtons() {
+            const backBtn = document.getElementById('backBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            if (currentPage <= 1) backBtn.classList.add('hidden'); else backBtn.classList.remove('hidden');
+            if (currentPage >= totalPages) {
+                nextBtn.textContent = '🎉 Selesai';
+                nextBtn.onclick = () => alert('Terima kasih udah buka website ini! Semoga harimu menyenangkan! 💕');
+            } else {
+                nextBtn.textContent = 'Next →';
+                nextBtn.onclick = goNext;
+            }
+        }
+
+        // TYPEWRITER
+        const msg = "Selamat ulang tahun sayangnya aku yang bernama Regina Septient Malini ke 27 tahun, Hari ini hari spesial buat kamu, aku pengen bikin yang beda karna kita lagi LDR, ga banyak yang aku buat tapi i hope u love it 🫶.";
+        const twEl = document.getElementById('typewriter');
+        let idx = 0;
+        function typeWriter() {
+            if (idx < msg.length) { twEl.innerHTML += msg.charAt(idx); idx++; setTimeout(typeWriter, 40); }
+        }
+
+        // CANDLES
+        function blowCandle(candleEl) {
+            const flame = candleEl.querySelector('.candle-flame');
+            const smoke = candleEl.querySelector('.candle-smoke');
+            if (flame.classList.contains('blown')) return;
+            flame.classList.add('blown');
+            setTimeout(() => smoke.classList.add('rise'), 100);
+            candlesBlown++;
+            createMiniConfetti(candleEl);
+            checkAllCandlesBlown();
+        }
+
+        function blowAllCandles() {
+            document.querySelectorAll('.candle').forEach(c => {
+                const flame = c.querySelector('.candle-flame');
+                const smoke = c.querySelector('.candle-smoke');
+                if (!flame.classList.contains('blown')) {
+                    setTimeout(() => {
+                        flame.classList.add('blown');
+                        setTimeout(() => smoke.classList.add('rise'), 100);
+                        candlesBlown++;
+                        createMiniConfetti(c);
+                        checkAllCandlesBlown();
+                    }, Math.random() * 500);
+                }
+            });
+        }
+
+        function checkAllCandlesBlown() {
+            if (candlesBlown >= 3) {
+                setTimeout(() => {
+                    document.getElementById('blowHint').textContent = 'Happy Birthday! Semoga semua keinginanmu terkabul! ';
+                    document.getElementById('blowHint').style.color = '#FFD700';
+                    document.getElementById('moodSection').classList.add('visible');
+                    createBigConfetti();
+                }, 500);
+            }
+        }
+
+        function resetCandles() {
+            candlesBlown = 0;
+            document.querySelectorAll('.candle-flame').forEach(f => f.classList.remove('blown'));
+            document.querySelectorAll('.candle-smoke').forEach(s => s.classList.remove('rise'));
+            document.getElementById('moodSection').classList.remove('visible');
+            document.getElementById('blowHint').textContent = 'Klik lilin atau kuenya buat tiup! 🎂';
+            document.getElementById('blowHint').style.color = '';
+        }
+
+        // CONFETTI
+        function createMiniConfetti(element) {
+            const rect = element.getBoundingClientRect();
+            const colors = ['#FF6B8B', '#FFD700', '#FFF9F0', '#C9A96E'];
+            for (let i = 0; i < 15; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti-piece';
+                confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.left = (rect.left + rect.width/2 + (Math.random() - 0.5) * 50) + 'px';
+                confetti.style.top = rect.top + 'px';
+                confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
+                document.body.appendChild(confetti);
+                setTimeout(() => confetti.remove(), 2500);
+            }
+        }
+
+        function createBigConfetti() {
+            const colors = ['#FF6B8B', '#FFD700', '#FFF9F0', '#C9A96E'];
+            for (let i = 0; i < 60; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti-piece';
+                confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.left = Math.random() * 100 + 'vw';
+                confetti.style.top = '-10px';
+                confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
+                confetti.style.animationDuration = (2 + Math.random() * 2) + 's';
+                document.body.appendChild(confetti);
+                setTimeout(() => confetti.remove(), 4000);
+            }
+        }
+
+        // MOOD
+        const moodLabels = ['', 'Sedih ', 'Biasa Aja 😐', 'Lumayan 🙂', 'Senang 😊', 'Bahagia Banget 🥳'];
+        function updateMood(val) { document.getElementById('moodLabel').textContent = moodLabels[val]; }
+
+        // WISH WALL
+        function saveWish() {
+            const val = document.getElementById('wishInput').value.trim();
+            if (!val) { alert('Tulis harapanmu dulu ya!'); return; }
+            localStorage.setItem('bday-wish', val);
+            alert('Harapanmu sudah tersimpan! 💫');
+        }
+
+        // INIT
+        window.addEventListener('DOMContentLoaded', () => {
+            createFallingHearts();
+            const saved = localStorage.getItem('bday-wish');
+            if (saved) document.getElementById('wishInput').value = saved;
+        });
+    </script>
+</body>
+</html>
