@@ -44,7 +44,7 @@
         .shape-heart { fill: var(--accent-pink); } .shape-star { fill: var(--gold-muted); } .shape-sparkle { fill: var(--paper-white); }
         @keyframes floatShape { 0%, 100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-15px) rotate(10deg); } }
 
-        /* VINYL PLAYER - DESAIN BARU PAKAI SVG (BUKAN EMOJI) */
+        /* VINYL PLAYER - DESAIN BARU PAKAI SVG */
         .vinyl-player { 
             position: fixed; 
             bottom: 20px; left: 20px; 
@@ -107,7 +107,22 @@
         @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
 
         /* PAGE SYSTEM */
-        .page { position: fixed; top: 0; left: 0; width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 60px 80px 100px; overflow-y: auto; opacity: 0; transform: scale(0.95); pointer-events: none; transition: opacity 0.6s ease, transform 0.6s ease; z-index: 10; }
+        .page { 
+            position: fixed; 
+            top: 0; left: 0; 
+            width: 100%; height: 100%; 
+            display: flex; 
+            flex-direction: column; 
+            justify-content: center; 
+            align-items: center; 
+            padding: 60px 80px 100px; 
+            overflow-y: auto; 
+            opacity: 0; 
+            transform: scale(0.95); 
+            pointer-events: none; 
+            transition: opacity 0.6s ease, transform 0.6s ease; 
+            z-index: 10; 
+        }
         .page.active { opacity: 1; transform: scale(1); pointer-events: auto; }
         .page.exit-left { opacity: 0; transform: scale(0.9) translateX(-30px); }
         .page.exit-right { opacity: 0; transform: scale(0.9) translateX(30px); }
@@ -124,8 +139,8 @@
         .note-card::before { content: ''; position: absolute; top: -15px; left: 50%; transform: translateX(-50%); width: 100px; height: 30px; background: var(--tape-color); }
         .typewriter { font-size: 1.15rem; line-height: 1.9; min-height: 80px; font-weight: 600; color: var(--ink-black); }
 
-        /* PAGE 2 - 8 FOTO DENGAN OBJECT-FIT */
-        .photos-intro { text-align: center; margin-bottom: 20px; }
+        /* PAGE 2 - 8 FOTO */
+        .photos-intro { text-align: center; margin-bottom: 15px; flex-shrink: 0; }
         .photos-intro-text { font-family: 'Caveat', cursive; font-size: 2.5rem; color: var(--paper-white); text-shadow: 2px 2px 0 var(--ink-black); transform: rotate(-2deg); display: inline-block; }
         
         .polaroid-grid { 
@@ -134,7 +149,7 @@
             gap: 18px;
             max-width: 680px;
             width: 100%;
-            padding: 20px 0;
+            padding: 10px 0;
         }
         
         .polaroid { 
@@ -152,7 +167,6 @@
             overflow: hidden;
         }
         
-        /* INI YANG BIKIN FOTO FIT DI FRAME */
         .polaroid img { 
             width: 100%; 
             height: 100%; 
@@ -222,42 +236,36 @@
         .confetti-piece { position: fixed; width: 8px; height: 8px; pointer-events: none; z-index: 9999; animation: confettiFall 2.5s ease-out forwards; }
         @keyframes confettiFall { 0% { transform: translateY(0) rotate(0deg); opacity: 1; } 100% { transform: translateY(100vh) rotate(720deg); opacity: 0; } }
 
-        /* ===== RESPONSIVE MOBILE ===== */
-        @media (max-width: 600px) {
+        /* ===== RESPONSIVE MOBILE PORTRAIT ===== */
+        @media (max-width: 600px) and (orientation: portrait) {
             .page { padding: 50px 20px 90px; }
             .page-title { font-size: 2.8rem; margin-bottom: 25px; }
             .note-card { padding: 25px 20px; }
             .typewriter { font-size: 1rem; }
             
-            /* Polaroid grid jadi 2 kolom di HP */
             .polaroid-grid { grid-template-columns: repeat(2, 1fr); gap: 15px; max-width: 340px; }
             .polaroid { padding: 8px 8px 30px; }
             .photos-intro-text { font-size: 2rem; }
             
-            /* Section heading lebih kecil */
             .section-heading { font-size: 2.2rem; margin-bottom: 15px; }
             
-            /* Prayer card lebih kecil */
             .prayer-card { padding: 25px 20px; }
             .prayer-text { font-size: 1.1rem; line-height: 1.8; }
             .prayer-signature { font-size: 1.3rem; }
             
-            /* Cake lebih kecil */
             .cake { transform: scale(0.8); margin: 10px 0; }
             .candles-row { gap: 20px; }
             .blow-hint { font-size: 1.3rem; }
             .mood-heading { font-size: 1.6rem; }
             .mood-slider-container { padding: 20px; }
             
-            /* Wish wall lebih kecil */
             .wish-wall { padding: 25px 20px; }
             .footer-doodle { font-size: 1.4rem; }
             
-            /* NAV BUTTONS - pindah ke atas dikit biar gak numpuk */
             .nav-buttons { bottom: 15px; gap: 10px; }
             .nav-btn { padding: 8px 18px; font-size: 0.85rem; }
             
-            /* VINYL PLAYER - pindah ke KANAN ATAS di HP */
+            /* VINYL - pindah ke KANAN ATAS di HP portrait */
             .vinyl-player {
                 bottom: auto;
                 top: 12px;
@@ -271,7 +279,6 @@
             .vinyl-btn { width: 32px; height: 32px; }
             .vinyl-btn svg { width: 14px; height: 14px; }
             
-            /* Ornamen dikecilin */
             .side-ornament { opacity: 0.25; }
             .ornament-shape { transform: scale(0.7); }
             
@@ -279,26 +286,81 @@
             .sticker-btn { font-size: 1.6rem; padding: 15px 35px; }
         }
 
-        /* ===== RESPONSIVE LANDSCAPE HP ===== */
+        /* ===== RESPONSIVE LANDSCAPE HP - FIX TOTAL ===== */
         @media (max-height: 500px) and (orientation: landscape) {
-            .page { padding: 30px 40px; justify-content: flex-start; overflow-y: auto; }
-            .page-title { font-size: 2.2rem; margin-bottom: 15px; }
-            .note-card { padding: 20px; margin-bottom: 20px; }
-            .typewriter { font-size: 0.95rem; min-height: auto; }
+            /* Page jadi scrollable, padding minimal */
+            .page { 
+                padding: 10px 20px 60px; 
+                justify-content: flex-start; 
+                overflow-y: auto; 
+            }
             
-            .polaroid-grid { gap: 10px; padding: 10px 0; }
-            .polaroid { padding: 6px 6px 25px; }
+            /* Judul dikecilin banget biar gak kepotong */
+            .page-title { 
+                font-size: 2rem; 
+                margin-bottom: 10px; 
+                transform: rotate(0deg);
+            }
             
-            .cake { transform: scale(0.65); }
+            .note-card { padding: 15px 20px; margin-bottom: 10px; }
+            .typewriter { font-size: 0.9rem; min-height: auto; line-height: 1.5; }
+            
+            /* Foto grid - lebih compact */
+            .photos-intro { margin-bottom: 8px; }
+            .photos-intro-text { font-size: 1.5rem; }
+            .polaroid-grid { 
+                grid-template-columns: repeat(4, 1fr); 
+                gap: 8px; 
+                max-width: 100%;
+                padding: 5px 0;
+            }
+            .polaroid { padding: 5px 5px 20px; }
+            
+            /* Wish card compact */
             .section-heading { font-size: 1.8rem; margin-bottom: 10px; }
+            .prayer-card { padding: 15px 20px; }
+            .prayer-text { font-size: 0.95rem; line-height: 1.6; }
+            .prayer-signature { font-size: 1.1rem; margin-top: 10px; }
+            .page-content-scroll { max-height: none; gap: 15px; padding: 10px; }
             
-            .prayer-card { padding: 20px; max-height: 60vh; overflow-y: auto; }
-            .prayer-text { font-size: 1rem; }
+            /* Cake di-scale kecil */
+            .cake { transform: scale(0.6); margin: 5px 0; }
+            .candles-row { gap: 15px; margin-bottom: -5px; }
+            .blow-hint { font-size: 1.1rem; margin-top: 10px; }
+            .mood-heading { font-size: 1.3rem; margin-bottom: 8px; }
+            .mood-slider-container { padding: 12px 20px; }
+            .mood-emojis { font-size: 1.5rem; }
+            .mood-section { margin-top: 15px; }
             
-            .nav-buttons { bottom: 10px; }
-            .vinyl-player { top: 8px; right: 8px; padding: 5px 8px; }
-            .vinyl-disc-container { width: 32px; height: 32px; }
-            .vinyl-btn { width: 28px; height: 28px; }
+            /* Wish wall compact */
+            .wish-wall { padding: 15px 20px; margin-bottom: 10px; }
+            .wish-input { height: 60px; padding: 12px; font-size: 0.9rem; }
+            .save-wish-btn { padding: 10px 30px; font-size: 0.95rem; }
+            .footer-doodle { font-size: 1.2rem; margin-top: 10px; }
+            
+            /* NAV BUTTONS - di bawah, compact */
+            .nav-buttons { bottom: 8px; gap: 8px; }
+            .nav-btn { padding: 6px 16px; font-size: 0.8rem; }
+            
+            /* VINYL PLAYER - TETAP KECIL DI KANAN ATAS */
+            .vinyl-player {
+                position: fixed;
+                bottom: auto;
+                top: 8px;
+                left: auto;
+                right: 8px;
+                padding: 4px 8px;
+                gap: 6px;
+                border-radius: 40px;
+            }
+            .vinyl-disc-container { width: 28px; height: 28px; }
+            .vinyl-center { width: 10px; height: 10px; border-width: 1px; }
+            .vinyl-btn { width: 26px; height: 26px; }
+            .vinyl-btn svg { width: 12px; height: 12px; }
+            
+            /* Ornamen di-hide di landscape biar gak ganggu */
+            .side-ornament { display: none; }
+            .doodle { display: none; }
         }
 
         /* ===== TABLET ===== */
@@ -307,6 +369,13 @@
             .page-title { font-size: 3.5rem; }
             .polaroid-grid { max-width: 550px; gap: 18px; }
             .section-heading { font-size: 2.5rem; }
+            
+            .vinyl-player {
+                bottom: auto;
+                top: 15px;
+                left: auto;
+                right: 15px;
+            }
         }
     </style>
 </head>
@@ -327,15 +396,13 @@
         <svg class="ornament-shape" width="22" height="22" viewBox="0 0 24 24"><path class="shape-sparkle" d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5L12 2Z"/></svg>
     </div>
 
-    <!-- VINYL PLAYER DENGAN SVG ICON (BUKAN EMOJI) -->
+    <!-- VINYL PLAYER DENGAN SVG ICON -->
     <div class="vinyl-player">
         <div class="vinyl-disc-container" id="vinylDisc">
             <div class="vinyl-center"></div>
         </div>
         <button class="vinyl-btn" id="vinylBtn" onclick="toggleVinyl()" aria-label="Play/Pause">
-            <!-- Icon Play (SVG) -->
             <svg id="playIcon" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-            <!-- Icon Pause (SVG, hidden by default) -->
             <svg id="pauseIcon" viewBox="0 0 24 24" style="display:none;"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
         </button>
         <audio id="vinylAudio" loop><source src="audio/lagu.mp3" type="audio/mpeg"></audio>
@@ -395,12 +462,12 @@
             <div class="cake" onclick="blowAllCandles()"><div class="cake-top"></div><div class="cake-bottom"></div></div>
             <div class="cake-plate"></div>
         </div>
-        <div class="blow-hint" id="blowHint">Klik lilin atau kuenya buat tiup! 🎂</div>
+        <div class="blow-hint" id="blowHint">Klik lilin atau kuenya buat tiup! </div>
         <div class="mood-section" id="moodSection">
             <h3 class="mood-heading">Gimana perasaannya hari ini ulang tahun ke 27?</h3>
             <div class="mood-slider-container">
                 <div class="mood-emojis">
-                    <span>😢</span><span>😐</span><span>🙂</span><span>😊</span><span>🥳</span>
+                    <span>😢</span><span></span><span>🙂</span><span>😊</span><span>🥳</span>
                 </div>
                 <input type="range" min="1" max="5" value="1" class="mood-range" id="moodSlider" oninput="updateMood(this.value)">
                 <div class="mood-label" id="moodLabel">Sedih 😢</div>
@@ -432,10 +499,9 @@
         let typewriterStarted = false;
         let vinylPlaying = false;
 
-        // FALLING HEARTS
         function createFallingHearts() {
             const container = document.getElementById('fallingHearts');
-            const hearts = ['💕', '💖', '', '✨', '💝'];
+            const hearts = ['💕', '', '', '✨', '💝'];
             for (let i = 0; i < 20; i++) {
                 const heart = document.createElement('div');
                 heart.className = 'falling-heart';
@@ -448,7 +514,6 @@
             }
         }
 
-        // VINYL PLAYER DENGAN SVG ICON
         function toggleVinyl() {
             const audio = document.getElementById('vinylAudio');
             const disc = document.getElementById('vinylDisc');
@@ -470,7 +535,6 @@
             }
         }
 
-        // OPEN WEBSITE
         function openWebsite() {
             document.getElementById('landing').classList.add('hidden');
             document.getElementById('navButtons').style.display = 'flex';
@@ -488,7 +552,6 @@
             }, 400);
         }
 
-        // PAGE NAVIGATION
         function showPage(pageNum) {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active', 'exit-left', 'exit-right'));
             const targetPage = document.getElementById('page' + pageNum);
@@ -528,7 +591,6 @@
             }
         }
 
-        // TYPEWRITER
         const msg = "Selamat ulang tahun sayangnya aku yang bernama Regina Septient Malini ke 27 tahun, Hari ini hari spesial buat kamu, aku pengen bikin yang beda karna kita lagi LDR, ga banyak yang aku buat tapi i hope u love it 🫶.";
         const twEl = document.getElementById('typewriter');
         let idx = 0;
@@ -536,7 +598,6 @@
             if (idx < msg.length) { twEl.innerHTML += msg.charAt(idx); idx++; setTimeout(typeWriter, 40); }
         }
 
-        // CANDLES
         function blowCandle(candleEl) {
             const flame = candleEl.querySelector('.candle-flame');
             const smoke = candleEl.querySelector('.candle-smoke');
@@ -584,7 +645,6 @@
             document.getElementById('blowHint').style.color = '';
         }
 
-        // CONFETTI
         function createMiniConfetti(element) {
             const rect = element.getBoundingClientRect();
             const colors = ['#FF6B8B', '#FFD700', '#FFF9F0', '#C9A96E'];
@@ -615,11 +675,9 @@
             }
         }
 
-        // MOOD
         const moodLabels = ['', 'Sedih 😢', 'Biasa Aja 😐', 'Lumayan 🙂', 'Senang 😊', 'Bahagia Banget 🥳'];
         function updateMood(val) { document.getElementById('moodLabel').textContent = moodLabels[val]; }
 
-        // WISH WALL
         function saveWish() {
             const val = document.getElementById('wishInput').value.trim();
             if (!val) { alert('Tulis harapanmu dulu ya!'); return; }
@@ -627,7 +685,6 @@
             alert('Harapanmu sudah tersimpan! 💫');
         }
 
-        // INIT
         window.addEventListener('DOMContentLoaded', () => {
             createFallingHearts();
             const saved = localStorage.getItem('bday-wish');
